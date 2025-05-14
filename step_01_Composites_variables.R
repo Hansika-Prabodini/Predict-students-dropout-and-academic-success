@@ -222,6 +222,10 @@ academic5 <- academic5 %>%
 
 View(academic5)
 
+write.csv(academic5, file = "academic5.csv", row.names = FALSE)
+
+write.csv(academic5, file = "C:/Users/Asus/Desktop/MSC/academic5.csv", row.names = FALSE)
+
 
 
 
