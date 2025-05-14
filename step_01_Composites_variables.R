@@ -222,19 +222,19 @@ academic5 <- academic5 %>%
 
 
 
-# Assuming your data frame is called academic5, you can create a new column total_credited
+
 academic5$total_credited <- academic5$`Curricular units 1st sem (credited)` + academic5$`Curricular units 2nd sem (credited)`
 
-# View the updated dataset with the new total_credited column
+
 head(academic5)
 
-# If you are using the dplyr package, you can use select to remove the columns
+
 library(dplyr)
 
 academic5 <- academic5 %>%
   select(-`Curricular units 1st sem (credited)`, -`Curricular units 2nd sem (credited)`)
 
-# View the updated dataset
+
 head(academic5)
 
 View(academic5)
