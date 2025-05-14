@@ -14,9 +14,17 @@ str(academic5)
 # Check for missing values in each column
 colSums(is.na(academic5))
 
+
+# Check duplicates
+# Check for duplicate rows in the entire dataset
+duplicates <- duplicated(academic5)
+
+# Display the rows that are duplicates
+academic5[duplicates, ]
+
+
 # There are no any missing values in this data set - so no further action need 
-
-
+# there are no duplicate rows in this dataset
 
 # 02. Descriptive Statistics
 
