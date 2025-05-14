@@ -9,22 +9,22 @@ The dataset includes information known at the time of student enrollment – aca
 
 The problem is formulated as a three category classification task (dropout, enrolled, and graduate) at the end of the normal duration of the course. 
 
-## Who funded the creation of the dataset?
+### Who funded the creation of the dataset?
 
 This dataset is supported by program SATDAP - Capacitação da Administração Pública under grant POCI-05-5762-FSE-000191, Portugal.
 
-## What do the instances in this dataset represent?
+### What do the instances in this dataset represent?
 
 Each instance is a student
 
-## Are there recommended data splits?
+### Are there recommended data splits?
 
 The dataset was used, in our project, with a data split of 80% for training and 20% for test.
 
-## Was there any data preprocessing performed?
+### Was there any data preprocessing performed?
 
 We performed a rigorous data preprocessing to handle data from anomalies, unexplainable outliers, and missing values.
 
-## Has Missing Values?
+### Has Missing Values?
 
 No
