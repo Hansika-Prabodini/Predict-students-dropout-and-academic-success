@@ -224,6 +224,7 @@ View(academic5)
 
 write.csv(academic5, file = "academic5.csv", row.names = FALSE)
 
+# added/saved data file to path
 write.csv(academic5, file = "C:/Users/Asus/Desktop/MSC/academic5.csv", row.names = FALSE)
 
 
