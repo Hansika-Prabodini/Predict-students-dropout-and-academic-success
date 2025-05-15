@@ -17,7 +17,7 @@ colSums(is.na(academic5))
 names(academic5)
 
 
-## avg_grade vs total_approved faceted by Target
+## avg_grade vs total_approved faceted by Target -- 10
 
 library(ggplot2)
 
@@ -28,19 +28,19 @@ ggplot(academic5, aes(x = avg_grade, y = total_approved, color = Target)) +
 
 
 ## Correlation within group
-performance_vars <- academic5[, c("avg_grade", "Admission grade", "total_approved", "total_credited", "units_with_evaluation")]
+performance_vars <- academic5[, c("avg_grade", "Admission.grade", "total_approved", "total_credited", "units_with_evaluation")]
 cor(performance_vars, use = "complete.obs")
 
 
 
 
-#  Boxplot GDP & Unemployment faceted by Target
+#  Boxplot GDP & Unemployment faceted by Target - 11
 
 
 library(tidyr)
 
 academic5_long <- academic5 %>%
-  pivot_longer(cols = c(GDP, `Unemployment rate`, `Inflation rate`), names_to = "Economic", values_to = "Value")
+  pivot_longer(cols = c(GDP, `Unemployment.rate`, `Inflation.rate`), names_to = "Economic", values_to = "Value")
 
 ggplot(academic5_long, aes(x = Target, y = Value, fill = Target)) +
   geom_boxplot() +
@@ -49,29 +49,29 @@ ggplot(academic5_long, aes(x = Target, y = Value, fill = Target)) +
 
 
 
-#  Stacked Bar: Application Mode + Application Order
-ggplot(academic5, aes(x = factor(`Application mode`), fill = Target)) +
+#  Stacked Bar: Application Mode + Application Order 
+ggplot(academic5, aes(x = factor(`Application.mode`), fill = Target)) +
   geom_bar(position = "fill") +
-  facet_wrap(~cut(`Application order`, breaks = 3)) +
+  facet_wrap(~cut(`Application.order`, breaks = 3)) +
   scale_y_continuous(labels = scales::percent) +
   labs(title = "Motivation Patterns by Application Mode and Order")
 
 
 
-# Scatter: total_enrolled vs units_with_evaluation colored by Target
+# Scatter: total_enrolled vs units_with_evaluation colored by Target  -- 12
 ggplot(academic5, aes(x = total_enrolled, y = units_with_evaluation, color = Target)) +
   geom_point(alpha = 0.6) +
   labs(title = "Enrollment vs Evaluated Units by Target")
 
 
-# Grouped Bar Chart: Gender × Special Needs × Target
+# Grouped Bar Chart: Gender × Special Needs × Target 
 ggplot(academic5, aes(x = factor(`Gender`), fill = Target)) +
   geom_bar(position = "dodge") +
-  facet_wrap(~`Educational special needs`) +
+  facet_wrap(~`Educational.special.needs`) +
   labs(title = "Target Outcome by Gender and Special Needs")
 
 
-# Scatter Plot of Average Grade vs Total Approved Unit
+# Scatter Plot of Average Grade vs Total Approved Unit -- 13
 library(ggplot2)
 
 ggplot(academic5, aes(x = avg_grade, y = total_approved, color = Target)) +
@@ -87,7 +87,7 @@ ggplot(academic5, aes(x = avg_grade, y = total_approved, color = Target)) +
 # Age at Enrollment Density Plot by Target
 library(ggplot2)
 
-ggplot(academic5, aes(x = `Age at enrollment`, fill = Target)) +
+ggplot(academic5, aes(x = `Age.at.enrollment`, fill = Target)) +
   geom_density(alpha = 0.5) +
   scale_fill_manual(values = c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")) +
   labs(title = "Age at Enrollment Distribution by Target",
@@ -117,10 +117,10 @@ print(summary_stats)
 
 
 
-# Scatter Plot for Total Approved vs Age at Enrollment by Target
+# Scatter Plot for Total Approved vs Age at Enrollment by Target - 14
 library(ggplot2)
 
-ggplot(academic5, aes(x = `Age at enrollment`, y = total_approved, color = Target)) +
+ggplot(academic5, aes(x = `Age.at.enrollment`, y = total_approved, color = Target)) +
   geom_point(alpha = 0.7, size = 3) +
   scale_color_manual(values = c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")) +
   labs(title = "Scatter Plot of Total Approved Units vs Age at Enrollment",
@@ -131,10 +131,10 @@ ggplot(academic5, aes(x = `Age at enrollment`, y = total_approved, color = Targe
 
 
 
-# Scatter Plot for Average Grade vs Age at Enrollment by Target
+# Scatter Plot for Average Grade vs Age at Enrollment by Target - 15
 library(ggplot2)
 
-ggplot(academic5, aes(x = `Age at enrollment`, y = avg_grade, color = Target)) +
+ggplot(academic5, aes(x = `Age.at.enrollment`, y = avg_grade, color = Target)) +
   geom_point(alpha = 0.7, size = 3) +
   scale_color_manual(values = c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")) +
   labs(title = "Scatter Plot of Average Grade vs Age at Enrollment",
@@ -145,7 +145,7 @@ ggplot(academic5, aes(x = `Age at enrollment`, y = avg_grade, color = Target)) +
 
 
 
-# Overlayed Histograms for avg_grade and total_approved by Target
+# Overlayed Histograms for avg_grade and total_approved by Target - 16
 library(ggplot2)
 library(tidyr)
 

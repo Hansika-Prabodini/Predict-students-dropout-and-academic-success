@@ -44,7 +44,7 @@ names(academic5)
 
 ## Univariate analysis
 
-# Distribution of Y variable - Distribution of Student Status
+# Distribution of Y variable - Distribution of Student Status  - 01 analysis
 
 library(dplyr)
 library(ggplot2)
@@ -74,7 +74,7 @@ ggplot(target_summary, aes(x = Target, y = count, fill = Target)) +
 names(academic5)
 
 
-## Target and Gender
+## Target and Gender - 02
 unique(academic5$Target)
 # Create bar plots for each category of 'Target'
 ## percentage = women graduate count / all students
@@ -107,14 +107,14 @@ ggplot(gender_target_count, aes(x = factor(Gender, labels = c("Female", "Male"))
 
 
 
-## four plots together
+## four plots together - 03
 library(dplyr)
 library(ggplot2)
 library(tidyr)
 
 # Step 1: Select relevant columns
 selected_data <- academic5 %>%
-  select(Target, `Educational special needs`, Debtor, `Tuition fees up to date`, `Scholarship holder`)
+  select(Target, `Educational.special.needs`, Debtor, `Tuition.fees.up.to.date`, `Scholarship.holder`)
 
 # Step 2: Reshape to long format
 long_data <- selected_data %>%
@@ -135,7 +135,7 @@ ggplot(summary_data, aes(x = factor(Value), y = count, fill = Target)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
   geom_text(aes(label = label),
             position = position_dodge(width = 0.9),
-            vjust = -0.3, size = 3.2) +
+            vjust = -0.1, size = 2.2) +
   facet_wrap(~ Variable, scales = "free_x") +
   scale_fill_manual(values = c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")) +
   labs(title = "Student Status by Target and Key Variables",
@@ -149,7 +149,7 @@ ggplot(summary_data, aes(x = factor(Value), y = count, fill = Target)) +
 
 
 
-## Distribution of Displaced and International Students by Targe
+## Distribution of Displaced and International Students by Target  - 04
 
 
 library(dplyr)
@@ -179,7 +179,7 @@ ggplot(summary_data, aes(x = factor(Value), y = count, fill = Target)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
   geom_text(aes(label = label),
             position = position_dodge(width = 0.9),
-            vjust = -0.5, size = 3.2) +
+            vjust = -0.5, size = 2.7) +
   facet_wrap(~ Variable, scales = "free_x") +
   scale_fill_manual(values = c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")) +
   labs(title = "Distribution of Displaced and International Students by Target",
@@ -202,13 +202,12 @@ ggplot(summary_data, aes(x = factor(Value), y = count, fill = Target)) +
 
 
 
-# Boxplot of Admission Grade by Target
-
+# Boxplot of Admission Grade by Target - 05 
 library(ggplot2)
 library(dplyr)
 
 # Basic boxplot with mean and median
-ggplot(academic5, aes(x = Target, y = `Admission grade`, fill = Target)) +
+ggplot(academic5, aes(x = Target, y = `Admission.grade`, fill = Target)) +
   geom_boxplot(outlier.colour = "black", outlier.shape = 16, outlier.size = 2) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "white", fill = "black") +  # Mean dot
   labs(title = "Admission Grade Distribution by Target",
@@ -238,14 +237,14 @@ summary_stats <- academic5 %>%
   group_by(Target) %>%
   summarise(
     Count = n(),
-    Mean = round(mean(`Admission grade`, na.rm = TRUE), 2),
-    Median = round(median(`Admission grade`, na.rm = TRUE), 2),
-    Mode = get_mode(`Admission grade`),
-    Q1 = round(quantile(`Admission grade`, 0.25, na.rm = TRUE), 2),
-    Q3 = round(quantile(`Admission grade`, 0.75, na.rm = TRUE), 2),
-    IQR = round(IQR(`Admission grade`, na.rm = TRUE), 2),
-    Min = min(`Admission grade`, na.rm = TRUE),
-    Max = max(`Admission grade`, na.rm = TRUE),
+    Mean = round(mean(`Admission.grade`, na.rm = TRUE), 2),
+    Median = round(median(`Admission.grade`, na.rm = TRUE), 2),
+    Mode = get_mode(`Admission.grade`),
+    Q1 = round(quantile(`Admission.grade`, 0.25, na.rm = TRUE), 2),
+    Q3 = round(quantile(`Admission.grade`, 0.75, na.rm = TRUE), 2),
+    IQR = round(IQR(`Admission.grade`, na.rm = TRUE), 2),
+    Min = min(`Admission.grade`, na.rm = TRUE),
+    Max = max(`Admission.grade`, na.rm = TRUE),
     Lower_Outlier_Threshold = round(Q1 - 1.5 * IQR, 2),
     Upper_Outlier_Threshold = round(Q3 + 1.5 * IQR, 2)
   )
@@ -253,7 +252,7 @@ summary_stats <- academic5 %>%
 
 
 
-## GDP Distribution by Student Target Status
+## GDP Distribution by Student Target Status - 06
 
 library(ggplot2)
 library(dplyr)
@@ -310,15 +309,15 @@ ggplot(academic5, aes(x = Target, y = GDP, fill = Target)) +
 
 
 
-## Unemployment rate and Inflation rate vs Target
+## Unemployment rate and Inflation rate vs Target - 07
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 
 # Reshape data to long format for plotting both variables
 academic5_long <- academic5 %>%
-  select(Target, `Unemployment rate`, `Inflation rate`) %>%
-  pivot_longer(cols = c(`Unemployment rate`, `Inflation rate`), 
+  select(Target, `Unemployment.rate`, `Inflation.rate`) %>%
+  pivot_longer(cols = c(`Unemployment.rate`, `Inflation.rate`), 
                names_to = "Variable", 
                values_to = "Value")
 
@@ -341,7 +340,7 @@ ggplot(academic5_long, aes(x = Target, y = Value, fill = Target)) +
   )
 
 
-# Distribution of Average Grades by Target Status
+# Distribution of Average Grades by Target Status - 08
 
 library(ggplot2)
 
@@ -394,7 +393,7 @@ print(summary_stats)
 
 
 
-## Distribution of Total Approved by Target Status
+## Distribution of Total Approved by Target Status - 09
 library(ggplot2)
 library(dplyr)
 
