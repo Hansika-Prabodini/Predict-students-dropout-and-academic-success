@@ -549,6 +549,87 @@ ggplot(academic5, aes(x = Target, y = parental_scores, fill = Target)) +
   theme_minimal()
 
 
+
+
+# Daytime/Evening Attendance vs Average Grade categorized by Target (Dropout, Enrolled, Graduate) - 09.2
+
+
+library(ggplot2)
+
+# Assuming your dataset is loaded into a variable called 'data'
+# Make sure the column names match the exact ones in your dataset.
+
+# Create the boxplot with specific colors and custom legend
+ggplot(academic5, aes(x = Target, y = avg_grade, fill = factor(Daytime.evening.attendance))) + 
+  geom_boxplot() +
+  labs(title = "Daytime/Evening Attendance vs Average Grade by Target",
+       x = "Target Status",
+       y = "Average Grade",
+       fill = "Attendance Mode") +
+  scale_fill_manual(values = c("0" = "brown", "1" = "orange"), labels = c("Evening", "Daytime")) +  # Custom colors and labels
+  theme_minimal() +
+  theme(legend.position = "top")  
+
+# Daytime/Evening Attendance vs Units with Evaluation  - 09.3
+
+
+
+
+# Create the boxplot for Daytime/Evening Attendance vs Units with Evaluation
+ggplot(academic5, aes(x = Target, y = units_with_evaluation, fill = factor(Daytime.evening.attendance))) + 
+  geom_boxplot() +
+  labs(title = "Daytime/Evening Attendance vs Units with Evaluation by Target",
+       x = "Target Status",
+       y = "Units with Evaluation",
+       fill = "Attendance Mode") +
+  scale_fill_manual(values = c("0" = "brown", "1" = "orange"), labels = c("Evening", "Daytime")) +  # Custom colors and labels
+  theme_minimal() +
+  theme(legend.position = "top")  
+ 
+
+# Parental Scores vs Target Status (Facet by Scholarship Status) - 09.4
+
+# Load necessary libraries
+library(ggplot2)
+
+
+
+# Convert the 'Scholarship' column to a factor
+academic5$Scholarship <- factor(academic5$Scholarship, levels = c(0, 1), labels = c("No", "Yes"))
+
+# Create the combined plot with Parental Scores and Scholarship Status
+ggplot(academic5, aes(x = Target, y = parental_scores, fill = Scholarship)) + 
+  geom_boxplot() +
+  labs(title = "Parental Scores vs Target Status (Facet by Scholarship Status)",
+       x = "Target Status",
+       y = "Parental Scores",
+       fill = "Scholarship Status") +
+  scale_fill_manual(values = c("No" = "brown", "Yes" = "orange")) + 
+  facet_wrap(~Scholarship) +  # Facet by Scholarship status
+  theme_minimal() +
+  theme(legend.position = "top")
+
+
+# Code for Age vs Target (Boxplot) - 09.5
+colnames(academic5)
+# Load necessary libraries
+library(ggplot2)
+
+# Create the boxplot for Age at Enrollment vs Target
+ggplot(academic5, aes(x = Target, y = Age.at.enrollment, fill = Target)) + 
+  geom_boxplot() +
+  labs(title = "Age Distribution at Enrollment vs Target Status",
+       x = "Target Status",
+       y = "Age at Enrollment") +
+  scale_fill_manual(values = c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")) +  # Custom colors
+  theme_minimal()
+
+
+
+
+
+View(academic5)
+
 ## Heatmaps
 
 # Select only the numeric columns from academic5
