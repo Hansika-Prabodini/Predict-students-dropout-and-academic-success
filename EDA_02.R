@@ -17,6 +17,7 @@ colSums(is.na(academic5))
 names(academic5)
 
 
+
 ## avg_grade vs total_approved faceted by Target -- 10
 
 library(ggplot2)
@@ -69,6 +70,58 @@ ggplot(academic5, aes(x = factor(`Gender`), fill = Target)) +
   geom_bar(position = "dodge") +
   facet_wrap(~`Educational.special.needs`) +
   labs(title = "Target Outcome by Gender and Special Needs")
+
+# 12 - subs
+# Define custom color palette
+target_colors <- c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")
+
+## 1. Scatter with color by Target
+ggplot(academic5, aes(x = avg_grade, y = total_approved, color = Target)) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~Target) +
+  scale_color_manual(values = target_colors) +   # add this
+  labs(title = "Academic Performance: Grade vs Approved Units by Target")
+
+## 2. Boxplot with fill by Target
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+
+# Assuming academic5 is loaded
+academic5_long <- academic5 %>%
+  pivot_longer(cols = c(GDP, Unemployment.rate, Inflation.rate), names_to = "Economic", values_to = "Value")
+
+target_colors <- c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")
+
+ggplot(academic5_long, aes(x = Target, y = Value, fill = Target)) +
+  geom_boxplot() +
+  facet_wrap(~Economic, scales = "free") +
+  scale_fill_manual(values = target_colors) +
+  labs(title = "Socioeconomic Indicators by Target")
+
+## 3. Stacked Bar with fill by Target
+ggplot(academic5, aes(x = factor(`Application.mode`), fill = Target)) +
+  geom_bar(position = "fill") +
+  facet_wrap(~cut(`Application.order`, breaks = 3)) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = target_colors) +   # add this
+  labs(title = "Motivation Patterns by Application Mode and Order")
+
+## 4. Scatter with color by Target
+ggplot(academic5, aes(x = total_enrolled, y = units_with_evaluation, color = Target)) +
+  geom_point(alpha = 0.6) +
+  scale_color_manual(values = target_colors) +  # add this
+  labs(title = "Enrollment vs Evaluated Units by Target")
+
+## 5. Grouped Bar with fill by Target
+ggplot(academic5, aes(x = factor(`Gender`), fill = Target)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~`Educational.special.needs`) +
+  scale_fill_manual(values = target_colors) +   # add this
+  labs(title = "Target Outcome by Gender and Special Needs")
+
+
+
 
 
 # Scatter Plot of Average Grade vs Total Approved Unit -- 13

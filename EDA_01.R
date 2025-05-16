@@ -67,11 +67,104 @@ ggplot(target_summary, aes(x = Target, y = count, fill = Target)) +
   theme_minimal()
 
 
+## distribution of age enrollment - 01.1 histogram 
+# Load necessary libraries
+library(ggplot2)
+
+
+# Plot histogram of Age at Enrollment
+ggplot(academic5, aes(x = Age.at.enrollment)) +
+  geom_histogram(binwidth = 2, fill = "orange", color = "black") +
+  labs(title = "Histogram of Age at Enrollment",
+       x = "Age at Enrollment",
+       y = "Frequency") +
+  theme_minimal()
+
+
+# bar graph of nationality
+df = academic5
+
+library(ggplot2)
+library(dplyr)
 
 
 
+# Map numeric codes to nationality names
+nationality_map <- c(
+  "1" = "Portuguese",
+  "2" = "German",
+  "6" = "Spanish",
+  "11" = "Italian",
+  "13" = "Dutch",
+  "14" = "English",
+  "17" = "Lithuanian",
+  "21" = "Angolan",
+  "22" = "Cape Verdean",
+  "24" = "Guinean",
+  "25" = "Mozambican",
+  "26" = "Santomean",
+  "32" = "Turkish",
+  "41" = "Brazilian",
+  "62" = "Romanian",
+  "100" = "Moldova (Republic of)",
+  "101" = "Mexican",
+  "103" = "Ukrainian",
+  "105" = "Russian",
+  "108" = "Cuban",
+  "109" = "Colombian"
+)
+
+
+df$Nacionality <- as.character(df$Nacionality)
+df$Nacionality <- recode(df$Nacionality, !!!nationality_map, .default = df$Nacionality)
+df$Nacionality <- factor(df$Nacionality, levels = unique(df$Nacionality))
+
+# Prepare counts for labels
+counts <- df %>% count(Nacionality)
+
+# Plot with count labels on top
+ggplot(df, aes(x = Nacionality)) +
+  geom_bar(fill = "steelblue") +
+  geom_text(data = counts, aes(x = Nacionality, y = n, label = n), vjust = -0.4) +
+  labs(title = "Bar Graph of Nationality",
+       x = "Nationality",
+       y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+# pie chart to Gender - 01.3
+df = academic5
+
+# Recode Gender: assuming 1 = Male, 0 = Female
+df$Gender <- factor(df$Gender, levels = c(0,1), labels = c("Female", "Male"))
+
+# Prepare data for pie chart
+gender_counts <- df %>%
+  count(Gender) %>%
+  mutate(percentage = n / sum(n) * 100,
+         label = paste0(Gender, ": ", n, " (", round(percentage, 1), "%)"))
+
+# Pie chart with counts and percentages on labels
+ggplot(gender_counts, aes(x = "", y = n, fill = Gender)) +
+  geom_col(width = 1, color = "white") +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = label), position = position_stack(vjust = 0.5), size = 5) +
+  labs(title = "Gender Distribution") +
+  theme_void() +
+  theme(legend.position = "none")
 
 names(academic5)
+
+library(ggplot2)
+
+# Create a histogram of parental_scores - 01.4
+ggplot(academic5, aes(x = parental_scores)) +
+  geom_histogram(binwidth = 0.5, fill = "skyblue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Parental Scores",
+       x = "Parental Scores",
+       y = "Frequency") +
+  theme_minimal()
 
 
 ## Target and Gender - 02
@@ -443,6 +536,17 @@ print(summary_stats_total_approved)
 
 
 
+# Three Boxplots of Parental Scores by Target 09.1
+library(ggplot2)
+
+# Create boxplot for parental_scores by Target
+ggplot(academic5, aes(x = Target, y = parental_scores, fill = Target)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("Dropout" = "red", "Graduate" = "green", "Enrolled" = "blue")) +  # Custom colors
+  labs(title = "Parental Scores by Target",
+       x = "Target Status",
+       y = "Parental Scores") +
+  theme_minimal()
 
 
 ## Heatmaps
